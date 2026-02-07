@@ -1,10 +1,203 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>My Website</title>
+<meta charset="UTF-8">
+<title>Book Review</title>
+
+<style>
+  body {
+    font-family: "Georgia", serif;
+    background: #fdf6f0;
+    padding: 30px;
+  }
+
+  h1 {
+    text-align: center;
+    background: #f6c1cc;
+    display: inline-block;
+    padding: 6px 18px;
+    border-radius: 12px;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: auto;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 30px;
+  }
+
+  .box {
+    border: 1px solid #000;
+    padding: 10px;
+  }
+
+  label {
+    display: block;
+    margin: 8px 0;
+  }
+
+  input[type="text"], textarea {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #000;
+    background: transparent;
+    padding: 5px;
+  }
+
+  textarea {
+    height: 120px;
+    border: 1px solid #000;
+  }
+
+  /* ⭐ STAR RATING */
+  .stars {
+    display: inline-flex;
+    flex-direction: row-reverse;
+  }
+
+  .stars input {
+    display: none;
+  }
+
+  .stars label {
+    font-size: 22px;
+    cursor: pointer;
+    color: #ccc;
+  }
+
+  .stars input:checked ~ label {
+    color: black;
+  }
+
+  .rating-row {
+    margin: 6px 0;
+  }
+
+  /* IMAGE UPLOAD BOXES */
+  .image-box {
+    border: 1px solid #000;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .image-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .recommend {
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  button {
+    font-size: 20px;
+    margin: 0 15px;
+    cursor: pointer;
+  }
+</style>
 </head>
+
 <body>
-  <h1>Hello 👋</h1>
-  <p>This is my first GitHub website.</p>
+<div class="container">
+
+  <h1>book review</h1>
+
+  <div class="grid">
+
+    <!-- BOOK COVER -->
+    <div class="image-box">
+      <input type="file">
+    </div>
+
+    <!-- DETAILS -->
+    <div>
+      <label>Title <input type="text"></label>
+      <label>Author <input type="text"></label>
+      <label>Genre <input type="text"></label>
+      <label>Days <input type="text"></label>
+      <label>Pages <input type="text"></label>
+      <label>Favorite character <input type="text"></label>
+
+      <label>
+        <input type="checkbox"> Book
+        <input type="checkbox"> Audiobook
+        <input type="checkbox"> Kindle
+      </label>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- LEFT RATINGS -->
+  <div class="rating-row">Quality of writing
+    <div class="stars">
+      <input id="qw5" type="radio" name="qw"><label for="qw5">★</label>
+      <input id="qw4" type="radio" name="qw"><label for="qw4">★</label>
+      <input id="qw3" type="radio" name="qw"><label for="qw3">★</label>
+      <input id="qw2" type="radio" name="qw"><label for="qw2">★</label>
+      <input id="qw1" type="radio" name="qw"><label for="qw1">★</label>
+    </div>
+  </div>
+
+  <div class="rating-row">Plot development
+    <div class="stars">
+      <input id="pd5" type="radio" name="pd"><label for="pd5">★</label>
+      <input id="pd4" type="radio" name="pd"><label for="pd4">★</label>
+      <input id="pd3" type="radio" name="pd"><label for="pd3">★</label>
+      <input id="pd2" type="radio" name="pd"><label for="pd2">★</label>
+      <input id="pd1" type="radio" name="pd"><label for="pd1">★</label>
+    </div>
+  </div>
+
+  <div class="rating-row">Characters
+    <div class="stars">
+      <input id="c5" type="radio" name="c"><label for="c5">★</label>
+      <input id="c4" type="radio" name="c"><label for="c4">★</label>
+      <input id="c3" type="radio" name="c"><label for="c3">★</label>
+      <input id="c2" type="radio" name="c"><label for="c2">★</label>
+      <input id="c1" type="radio" name="c"><label for="c1">★</label>
+    </div>
+  </div>
+
+  <div class="rating-row">Tension
+    <div class="stars">
+      <input id="t5" type="radio" name="t"><label for="t5">★</label>
+      <input id="t4" type="radio" name="t"><label for="t4">★</label>
+      <input id="t3" type="radio" name="t"><label for="t3">★</label>
+      <input id="t2" type="radio" name="t"><label for="t2">★</label>
+      <input id="t1" type="radio" name="t"><label for="t1">★</label>
+    </div>
+  </div>
+
+  <label>Favourite quote</label>
+  <textarea></textarea>
+
+  <label>Pictures that describe the book</label>
+  <div class="image-grid">
+    <div class="image-box"><input type="file"></div>
+    <div class="image-box"><input type="file"></div>
+    <div class="image-box"><input type="file"></div>
+    <div class="image-box"><input type="file"></div>
+  </div>
+
+  <label>Favourite chapter <input type="text"></label>
+  <label>Favourite scene <input type="text"></label>
+
+  <div class="recommend">
+    <p>Would I recommend?</p>
+    <button>✔</button>
+    <button>✖</button>
+  </div>
+
+</div>
 </body>
 </html>
+
