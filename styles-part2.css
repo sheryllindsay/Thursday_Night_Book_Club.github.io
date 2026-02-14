@@ -360,6 +360,35 @@ button:hover {
   transform: scale(1.05);
 }
 
+/* Radio buttons styled as clickable buttons */
+.radio-button {
+  font-size: 20px;
+  padding: 12px 30px;
+  cursor: pointer;
+  border: 2px solid #a78bfa;
+  background: #08060a;
+  color: #e9d5ff;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  font-family: 'Pacifico', cursive;
+  display: inline-block;
+}
+
+.radio-button input[type="radio"] {
+  display: none;
+}
+
+.radio-button:hover {
+  background: linear-gradient(180deg, rgba(124,58,237,0.35), rgba(109,40,217,0.22));
+  transform: scale(1.05);
+}
+
+.radio-button:has(input[type="radio"]:checked) {
+  background: linear-gradient(180deg, rgba(124,58,237,0.35), rgba(109,40,217,0.22));
+  color: #e9d5ff;
+}
+
 .submit-btn {
   background: linear-gradient(90deg,#7c3aed,#6d28d9);
   color: #fff;

@@ -7,6 +7,33 @@
 <link rel="stylesheet" href="styles-part2.css">
 </head>
 
+<!-- Firebase Connection -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-analytics.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+  import { getStorage } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-storage.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBoEb3E2D0_cq5LVZ90ZLSDvJJlUJxtUIo",
+    authDomain: "thursday-night-book-club.firebaseapp.com",
+    projectId: "thursday-night-book-club",
+    storageBucket: "thursday-night-book-club.firebasestorage.app",
+    messagingSenderId: "984125064488",
+    appId: "1:984125064488:web:4a872c2677e62424193c1d",
+    measurementId: "G-0GLPH7YLNF"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const db = getFirestore(app);
+  const storage = getStorage(app);
+
+  // Export Firebase services globally
+  window.firebaseServices = { db, storage, app };
+  console.log("Firebase initialized successfully!");
+</script>
+
 <body>
 <div class="container">
 
@@ -20,9 +47,10 @@
     <div class="book-info">
       <div class="book-cover-section">
         <div class="section-title">Book Cover</div>
-        <div class="image-box" onclick="document.querySelector('input[name=bookCover]').click()">
-          <input type="file" name="bookCover">
-          <span>Click to upload cover</span>
+        <div class="image-box" onclick="document.querySelector('input[name=bookCover]').click()" id="bookCoverBox">
+          <input type="file" name="bookCover" id="bookCoverInput" accept="image/*">
+          <span id="bookCoverText">Click to upload cover</span>
+          <img id="bookCoverPreview" style="display: none; width: 100%; height: 100%; object-fit: cover;">
         </div>
       </div>
 
@@ -199,21 +227,25 @@
       <div>
         <div class="section-title">Pictures That Describe the Book</div>
         <div class="image-grid">
-          <div class="image-box" onclick="this.querySelector('input').click()">
-            <input type="file" name="images">
-            <span>Click to upload</span>
+          <div class="image-box" onclick="this.querySelector('input').click()" id="imageBox1">
+            <input type="file" name="images" id="imageInput1" accept="image/*">
+            <span id="imageText1">Click to upload</span>
+            <img id="imagePreview1" style="display: none; width: 100%; height: 100%; object-fit: cover;">
           </div>
-          <div class="image-box" onclick="this.querySelector('input').click()">
-            <input type="file" name="images">
-            <span>Click to upload</span>
+          <div class="image-box" onclick="this.querySelector('input').click()" id="imageBox2">
+            <input type="file" name="images" id="imageInput2" accept="image/*">
+            <span id="imageText2">Click to upload</span>
+            <img id="imagePreview2" style="display: none; width: 100%; height: 100%; object-fit: cover;">
           </div>
-          <div class="image-box" onclick="this.querySelector('input').click()">
-            <input type="file" name="images">
-            <span>Click to upload</span>
+          <div class="image-box" onclick="this.querySelector('input').click()" id="imageBox3">
+            <input type="file" name="images" id="imageInput3" accept="image/*">
+            <span id="imageText3">Click to upload</span>
+            <img id="imagePreview3" style="display: none; width: 100%; height: 100%; object-fit: cover;">
           </div>
-          <div class="image-box" onclick="this.querySelector('input').click()">
-            <input type="file" name="images">
-            <span>Click to upload</span>
+          <div class="image-box" onclick="this.querySelector('input').click()" id="imageBox4">
+            <input type="file" name="images" id="imageInput4" accept="image/*">
+            <span id="imageText4">Click to upload</span>
+            <img id="imagePreview4" style="display: none; width: 100%; height: 100%; object-fit: cover;">
           </div>
         </div>
       </div>
@@ -236,16 +268,21 @@
     <div class="recommend-section-plain">
       <p>Would I Recommend This Book?</p>
       <div class="button-group">
-        <button type="button" value="yes" onclick="selectRecommend(this)">✔ Yes</button>
-        <button type="button" value="no" onclick="selectRecommend(this)">✖ No</button>
+        <label class="radio-button">
+          <input type="radio" name="recommend" value="yes">
+          <span>✔ Yes</span>
+        </label>
+        <label class="radio-button">
+          <input type="radio" name="recommend" value="no">
+          <span>✖ No</span>
+        </label>
       </div>
-      <input type="hidden" name="recommend" id="recommendValue">
       <button type="submit" class="submit-btn">Submit Review</button>
     </div>
 
 </div>
 
-<script src="script.js"></script>
+<script type="module" src="script.js"></script>
 </body>
 
 </html>
