@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Review</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500&family=Caveat:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #fdfcf8;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            body {
+                padding: 3rem;
+            }
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .content-wrapper {
+            max-width: 64rem;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f3f4f6;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+            .content-wrapper {
+                padding: 4rem;
+            }
+        }
+
+        .cursive-font {
+            font-family: 'Dancing Script', cursive;
+            color: #2d2d2d;
+        }
+
+        /* Header Section */
+        .header {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 4rem;
+        }
+
+        .header-line {
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            background-color: rgba(0, 0, 0, 0.2);
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .header-content {
+            position: relative;
+            background-color: white;
+            padding: 0 2rem;
+        }
+
+        .header-title-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .header-bg {
+            position: absolute;
+            inset: 0;
+            background-color: rgba(251, 191, 220, 0.8);
+            filter: blur(16px);
+            border-radius: 9999px;
+            transform: rotate(-1deg) scale(1.25);
+        }
+
+        .header-title {
+            position: relative;
+            font-size: 3rem;
+            padding: 0 1rem;
+            font-weight: 500;
+            z-index: 1;
+        }
+
+        /* Top Section Grid */
+        .top-section {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+            align-items: start;
+        }
+
+        @media (min-width: 1024px) {
+            .top-section {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .book-cover {
+            display: flex;
+            justify-content: center;
+        }
+
+        @media (min-width: 1024px) {
+            .book-cover {
+                justify-content: flex-start;
+            }
+        }
+
+        .book-cover-box {
+            border: 1px solid rgba(0, 0, 0, 0.6);
+            width: 100%;
+            max-width: 20rem;
+            aspect-ratio: 3/4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background-color: white;
+            box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.05);
+        }
+
+        .book-cover-text {
+            text-align: center;
+        }
+
+        .book-cover-text span:first-child {
+            display: block;
+            font-size: 2.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .book-cover-text span:last-child {
+            display: block;
+            font-size: 1.875rem;
+        }
+
+        .details {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            padding: 0.5rem 0;
+        }
+
+        .input-fields {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .input-line {
+            display: flex;
+            align-items: flex-end;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .input-label {
+            white-space: nowrap;
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .input-underline {
+            flex: 1;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+            height: 1.5rem;
+        }
+
+        .format-options {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding: 0 0.5rem;
+        }
+
+        .format-option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .checkbox {
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 1px solid rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        /* Star Rating */
+        .star-rating {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        svg.star {
+            width: 1.25rem;
+            height: 1.25rem;
+            stroke: black;
+            stroke-width: 0.5;
+            fill: none;
+        }
+
+        /* Ratings Section */
+        .ratings-section {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        @media (min-width: 768px) {
+            .ratings-section {
+                grid-template-columns: 1fr 1fr;
+                column-gap: 5rem;
+                row-gap: 2.5rem;
+            }
+        }
+
+        .ratings-column {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .ratings-column-first {
+            padding-top: 0;
+        }
+
+        @media (min-width: 768px) {
+            .ratings-column-second {
+                padding-top: 4.25rem;
+            }
+        }
+
+        .star-display {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            transform: scale(1.25);
+            transform-origin: center;
+        }
+
+        .rating-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .rating-label {
+            font-size: 1.25rem;
+            line-height: 1;
+        }
+
+        /* Middle Section */
+        .middle-section {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        @media (min-width: 768px) {
+            .middle-section {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .box-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .box-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .quote-box {
+            position: relative;
+            flex: 1;
+            border: 1px solid rgba(0, 0, 0, 0.6);
+            min-height: 20rem;
+            padding: 1.5rem;
+            background-color: white;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .quote-box textarea {
+            width: 100%;
+            height: 100%;
+            border: none;
+            resize: vertical;
+            font-size: 1rem;
+        }
+
+        .pictures-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border: 1px solid rgba(0, 0, 0, 0.6);
+            flex: 1;
+            min-height: 20rem;
+        }
+
+        .picture-cell {
+            flex: 1;
+        }
+
+        .picture-cell:nth-child(1) {
+            border-right: 1px solid rgba(0, 0, 0, 0.4);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+        }
+
+        .picture-cell:nth-child(2) {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+        }
+
+        .picture-cell:nth-child(3) {
+            border-right: 1px solid rgba(0, 0, 0, 0.4);
+        }
+
+        /* Bottom Section */
+        .bottom-section {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            margin-bottom: 5rem;
+        }
+
+        @media (min-width: 768px) {
+            .bottom-section {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .small-box {
+            height: 6rem;
+            border: 1px solid rgba(0, 0, 0, 0.6);
+            background-color: white;
+        }
+
+        /* Footer Section */
+        .footer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            padding-top: 3rem;
+        }
+
+        .footer-question {
+            font-size: 1.875rem;
+            font-style: italic;
+        }
+
+        .recommendation-buttons {
+            display: flex;
+            gap: 4rem;
+        }
+
+        .recommendation-btn {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background-color: white;
+        }
+
+        .recommendation-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .recommendation-btn.yes:hover {
+            background-color: rgba(34, 197, 94, 0.05);
+            border-color: #22c55e;
+        }
+
+        .recommendation-btn.no:hover {
+            background-color: rgba(239, 68, 68, 0.05);
+            border-color: #ef4444;
+        }
+
+        .icon-check {
+            width: 1.75rem;
+            height: 1.75rem;
+            color: #22c55e;
+            stroke-width: 0.75;
+        }
+
+        .icon-x {
+            width: 1.75rem;
+            height: 1.75rem;
+            color: #ef4444;
+            stroke-width: 0.75;
+        }
+
+        .recommendation-btn.no:hover .icon-x {
+            color: #ef4444;
+        }
+
+        /* Interactive Elements */
+        input[type="text"],
+        textarea {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1rem;
+            color: #2d2d2d;
+            background-color: transparent;
+            border: none;
+            padding: 0.25rem;
+            resize: none;
+            width: 100%;
+            outline: none;
+        }
+
+        input[type="text"]::placeholder,
+        textarea::placeholder {
+            color: rgba(45, 45, 45, 0.4);
+        }
+
+        textarea:focus,
+        input[type="text"]:focus {
+            background-color: rgba(251, 191, 220, 0.1);
+            border-radius: 0.25rem;
+        }
+
+        .star-rating.interactive {
+            cursor: pointer;
+        }
+
+        svg.star.interactive {
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+
+        svg.star.interactive:hover {
+            transform: scale(1.1);
+        }
+
+        svg.star.interactive.filled {
+            fill: black;
+            stroke: black;
+        }
+
+        .checkbox.interactive {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .checkbox.interactive:hover {
+            background-color: rgba(251, 191, 220, 0.1);
+        }
+
+        .checkbox.interactive.checked {
+            background-color: #2d2d2d;
+        }
+
+        .checkbox.interactive.checked::after {
+            content: "✓";
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .recommendation-btn.selected.yes {
+            background-color: rgba(34, 197, 94, 0.1);
+            border-color: #22c55e;
+        }
+
+        .recommendation-btn.selected.no {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-color: #ef4444;
+        }
+
+        .quote-box textarea,
+        .small-box textarea,
+        .picture-cell {
+            cursor: text;
+        }
+
+        .picture-cell.interactive {
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .picture-cell.interactive:hover {
+            background-color: rgba(251, 191, 220, 0.1);
+        }
+
+        .picture-cell img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content-wrapper">
+            <!-- Header -->
+            <div class="header">
+                <div class="header-line"></div>
+                <div class="header-content">
+                    <div class="header-title-wrapper">
+                        <div class="header-bg"></div>
+                        <h1 class="header-title cursive-font">book review</h1>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Section -->
+            <div class="top-section">
+                <!-- Book Cover -->
+                <div class="book-cover">
+                    <div class="book-cover-box">
+                        <div class="book-cover-text cursive-font">
+                            <span>book</span>
+                            <span>cover</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Details -->
+                <div class="details">
+                    <div class="input-fields">
+                        <div class="input-line">
+                            <span class="input-label cursive-font">title:</span>
+                            <input type="text" id="title" class="input-underline cursive-font" placeholder="Enter book title">
+                        </div>
+                        <div class="input-line">
+                            <span class="input-label cursive-font">author:</span>
+                            <input type="text" id="author" class="input-underline cursive-font" placeholder="Enter author name">
+                        </div>
+                        <div class="input-line">
+                            <span class="input-label cursive-font">genre:</span>
+                            <input type="text" id="genre" class="input-underline cursive-font" placeholder="Enter genre">
+                        </div>
+                        <div class="input-line">
+                            <span class="input-label cursive-font">date:</span>
+                            <input type="text" id="date" class="input-underline cursive-font" placeholder="Enter date">
+                        </div>
+                        <div class="input-line">
+                            <span class="input-label cursive-font">pages:</span>
+                            <input type="text" id="pages" class="input-underline cursive-font" placeholder="Enter number of pages">
+                        </div>
+                        <div class="input-line">
+                            <span class="input-label cursive-font">favourite character:</span>
+                            <input type="text" id="favoriteCharacter" class="input-underline cursive-font" placeholder="Enter favorite character">
+                        </div>
+                    </div>
+
+                    <div class="format-options">
+                        <div class="format-option">
+                            <div class="checkbox interactive" data-format="book"></div>
+                            <span class="cursive-font" style="font-size: 1.5rem;">Book</span>
+                        </div>
+                        <div class="format-option">
+                            <div class="checkbox interactive" data-format="audiobook"></div>
+                            <span class="cursive-font" style="font-size: 1.5rem;">Audiobook</span>
+                        </div>
+                        <div class="format-option">
+                            <div class="checkbox interactive" data-format="kindle"></div>
+                            <span class="cursive-font" style="font-size: 1.5rem;">Kindle</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ratings Section -->
+            <div class="ratings-section">
+                <div class="ratings-column ratings-column-first">
+                    <div class="star-display">
+                        <div class="star-rating interactive" data-rating="overall">
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="3"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="4"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                    </div>
+                    <div class="rating-row">
+                        <span class="rating-label cursive-font">quality of writing</span>
+                        <div class="star-rating interactive" data-rating="writing">
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="3"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="4"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                    </div>
+                    <div class="rating-row">
+                        <span class="rating-label cursive-font">plot development</span>
+                        <div class="star-rating interactive" data-rating="plot">
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="3"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="4"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                    </div>
+                    <div class="rating-row">
+                        <span class="rating-label cursive-font">characters</span>
+                        <div class="star-rating interactive" data-rating="characters">
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="3"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="4"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                    </div>
+                    <div class="rating-row">
+                        <span class="rating-label cursive-font">tension</span>
+                        <div class="star-rating interactive" data-rating="tension">
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="3"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="4"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ratings-column ratings-column-second">
+                    <div class="rating-row">
+                        <span class="rating-label cursive-font">sadness</span>
+                        <div class="star-rating interactive" data-rating="sadness">
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="3"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="4"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                    </div>
+                    <div class="rating-row">
+                        <span class="rating-label cursive-font">romance</span>
+                        <div class="star-rating interactive" data-rating="romance">
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="3"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="4"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                    </div>
+                    <div class="rating-row">
+                        <span class="rating-label cursive-font">funny</span>
+                        <div class="star-rating interactive" data-rating="funny">
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="3"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="4"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                    </div>
+                    <div class="rating-row">
+                        <span class="rating-label cursive-font">ease of reading</span>
+                        <div class="star-rating interactive" data-rating="reading">
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="3"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="4"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                    </div>
+                    <div class="rating-row">
+                        <span class="rating-label cursive-font">ending</span>
+                        <div class="star-rating interactive" data-rating="ending">
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="3"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="4"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg class="star interactive" viewBox="0 0 24 24" data-value="5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Middle Section -->
+            <div class="middle-section">
+                <!-- Favorite Quote -->
+                <div class="box-section">
+                    <span class="box-title cursive-font">favourite quote:</span>
+                    <div class="quote-box">
+                        <textarea id="quote" placeholder="Enter your favorite quote here..." style="height: 100%; padding: 1.5rem;"></textarea>
+                    </div>
+                </div>
+
+                <!-- Pictures -->
+                <div class="box-section">
+                    <span class="box-title cursive-font">pictures that describe the book</span>
+                    <div class="pictures-grid">
+                        <div class="picture-cell"></div>
+                        <div class="picture-cell"></div>
+                        <div class="picture-cell"></div>
+                        <div class="picture-cell"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Section -->
+            <div class="bottom-section">
+                <div class="box-section">
+                    <span class="box-title cursive-font">favourite chapter:</span>
+                    <textarea id="chapter" placeholder="Write about your favorite chapter..." style="height: 6rem; padding: 0.75rem; border: 1px solid rgba(0, 0, 0, 0.6);"></textarea>
+                </div>
+                <div class="box-section">
+                    <span class="box-title cursive-font">favourite scene:</span>
+                    <textarea id="scene" placeholder="Write about your favorite scene..." style="height: 6rem; padding: 0.75rem; border: 1px solid rgba(0, 0, 0, 0.6);"></textarea>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <span class="footer-question cursive-font">would i recommend ?</span>
+                <div class="recommendation-buttons">
+                    <button class="recommendation-btn yes" data-value="yes" id="btnYes">
+                        <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </button>
+                    <button class="recommendation-btn no" data-value="no" id="btnNo">
+                        <svg class="icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Store for ratings
+        const ratings = {};
+        const formats = {};
+        let recommendation = null;
+
+        // Initialize - load from localStorage
+        function loadData() {
+            const saved = localStorage.getItem('bookReview');
+            if (saved) {
+                const data = JSON.parse(saved);
+                // Restore text inputs
+                if (data.title) document.getElementById('title').value = data.title;
+                if (data.author) document.getElementById('author').value = data.author;
+                if (data.genre) document.getElementById('genre').value = data.genre;
+                if (data.date) document.getElementById('date').value = data.date;
+                if (data.pages) document.getElementById('pages').value = data.pages;
+                if (data.favoriteCharacter) document.getElementById('favoriteCharacter').value = data.favoriteCharacter;
+                if (data.quote) document.getElementById('quote').value = data.quote;
+                if (data.chapter) document.getElementById('chapter').value = data.chapter;
+                if (data.scene) document.getElementById('scene').value = data.scene;
+                
+                // Restore ratings
+                if (data.ratings) {
+                    Object.assign(ratings, data.ratings);
+                    updateStarDisplay();
+                }
+                
+                // Restore formats
+                if (data.formats) {
+                    Object.assign(formats, data.formats);
+                    updateFormatDisplay();
+                }
+                
+                // Restore recommendation
+                if (data.recommendation) {
+                    recommendation = data.recommendation;
+                    updateRecommendation();
+                }
+            }
+        }
+
+        // Save data to localStorage
+        function saveData() {
+            const data = {
+                title: document.getElementById('title').value,
+                author: document.getElementById('author').value,
+                genre: document.getElementById('genre').value,
+                date: document.getElementById('date').value,
+                pages: document.getElementById('pages').value,
+                favoriteCharacter: document.getElementById('favoriteCharacter').value,
+                quote: document.getElementById('quote').value,
+                chapter: document.getElementById('chapter').value,
+                scene: document.getElementById('scene').value,
+                ratings,
+                formats,
+                recommendation
+            };
+            localStorage.setItem('bookReview', JSON.stringify(data));
+        }
+
+        // Handle star clicks
+        document.querySelectorAll('.star-rating.interactive').forEach(rating => {
+            const ratingId = rating.dataset.rating;
+            rating.addEventListener('mouseleave', () => updateStarDisplay());
+            
+            rating.querySelectorAll('.star.interactive').forEach(star => {
+                star.addEventListener('click', () => {
+                    ratings[ratingId] = parseInt(star.dataset.value);
+                    updateStarDisplay();
+                    saveData();
+                });
+                
+                star.addEventListener('mouseenter', () => {
+                    const hoverValue = parseInt(star.dataset.value);
+                    const stars = rating.querySelectorAll('.star.interactive');
+                    stars.forEach((s, index) => {
+                        if (index < hoverValue) {
+                            s.classList.add('filled');
+                        } else {
+                            s.classList.remove('filled');
+                        }
+                    });
+                });
+            });
+        });
+
+        // Update star display based on ratings store
+        function updateStarDisplay() {
+            document.querySelectorAll('.star-rating.interactive').forEach(rating => {
+                const ratingId = rating.dataset.rating;
+                const value = ratings[ratingId] || 0;
+                const stars = rating.querySelectorAll('.star.interactive');
+                stars.forEach((star, index) => {
+                    if (index < value) {
+                        star.classList.add('filled');
+                    } else {
+                        star.classList.remove('filled');
+                    }
+                });
+            });
+        }
+
+        // Handle checkbox clicks
+        document.querySelectorAll('.checkbox.interactive').forEach(checkbox => {
+            checkbox.addEventListener('click', () => {
+                const format = checkbox.dataset.format;
+                formats[format] = !formats[format];
+                updateFormatDisplay();
+                saveData();
+            });
+        });
+
+        // Update format display
+        function updateFormatDisplay() {
+            document.querySelectorAll('.checkbox.interactive').forEach(checkbox => {
+                const format = checkbox.dataset.format;
+                if (formats[format]) {
+                    checkbox.classList.add('checked');
+                } else {
+                    checkbox.classList.remove('checked');
+                }
+            });
+        }
+
+        // Handle recommendation buttons
+        document.getElementById('btnYes').addEventListener('click', () => {
+            recommendation = 'yes';
+            updateRecommendation();
+            saveData();
+        });
+
+        document.getElementById('btnNo').addEventListener('click', () => {
+            recommendation = 'no';
+            updateRecommendation();
+            saveData();
+        });
+
+        // Update recommendation display
+        function updateRecommendation() {
+            document.getElementById('btnYes').classList.remove('selected');
+            document.getElementById('btnNo').classList.remove('selected');
+            if (recommendation === 'yes') {
+                document.getElementById('btnYes').classList.add('selected');
+            } else if (recommendation === 'no') {
+                document.getElementById('btnNo').classList.add('selected');
+            }
+        }
+
+        // Save text content changes
+        document.getElementById('title').addEventListener('change', saveData);
+        document.getElementById('author').addEventListener('change', saveData);
+        document.getElementById('genre').addEventListener('change', saveData);
+        document.getElementById('date').addEventListener('change', saveData);
+        document.getElementById('pages').addEventListener('change', saveData);
+        document.getElementById('favoriteCharacter').addEventListener('change', saveData);
+        document.getElementById('quote').addEventListener('change', saveData);
+        document.getElementById('chapter').addEventListener('change', saveData);
+        document.getElementById('scene').addEventListener('change', saveData);
+
+        // Load data on page load
+        window.addEventListener('load', loadData);
+    </script>
+</body>
+</html>
