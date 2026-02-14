@@ -1,0 +1,436 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Pacifico', cursive;
+  /* layered background: subtle radial base + dark overlay + responsive image */
+  background: linear-gradient(180deg, rgba(3,2,6,0.55), rgba(3,2,6,0.55)), url('Book-Review-BG-6.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+  padding: 30px 20px;
+  color: #e9d5ff;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: 10px;
+  padding: 30px;
+  border: 1px solid rgba(167,139,250,0.06);
+  box-shadow: 0 10px 40px rgba(90,30,140,0.45), inset 0 0 30px rgba(120,81,255,0.02);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 48px;
+  letter-spacing: 2px;
+  color: #dcd6ff; /* pale lavender */
+  text-shadow: 0 0 18px rgba(124,58,237,0.45);
+  font-family: 'Pacifico', cursive;
+  font-weight: bold;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: normal;
+  font-style: italic;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #a78bfa;
+  padding-bottom: 8px;
+  color: #c4b5fd;
+  font-family: 'Pacifico', cursive;
+}
+
+/* BOOK INFO SECTION */
+.book-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.book-cover-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.image-box {
+  border: 2px solid #6d28d9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: #08060a; /* black replaced white */
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  flex: 1;
+  min-height: 250px;
+  font-family: 'Pacifico', cursive;
+}
+
+.image-box:hover {
+  box-shadow: 0 6px 24px rgba(124,58,237,0.25);
+  border-color: #7c3aed;
+}
+
+.image-box input[type="file"] {
+  display: none;
+}
+
+.book-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-weight: normal;
+  color: #e9d5ff;
+  font-family: 'Pacifico', cursive;
+  font-size: 16px;
+}
+
+label span {
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+input[type="text"], textarea {
+  width: 100%;
+  border: 2px solid #a78bfa;
+  background: #0b0810; /* black */
+  padding: 10px;
+  font-family: 'Pacifico', cursive;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  color: #e9d5ff;
+  border-radius: 6px;
+}
+
+input[type="text"]:focus, textarea:focus {
+  outline: none;
+  border-color: #7c3aed;
+  box-shadow: 0 0 10px rgba(124,58,237,0.25);
+}
+
+textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.checkbox-group {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  justify-content: space-around;
+}
+
+.checkbox-group label {
+  flex-direction: column;
+  align-items: center;
+  font-weight: normal;
+  gap: 8px;
+}
+
+.checkbox-group input[type="checkbox"] {
+  display: none;
+  cursor: pointer;
+}
+
+.checkbox-icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #a78bfa;
+  border-radius: 8px;
+  background: #08060a;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-size: 24px;
+  gap: 2px;
+}
+
+.checkbox-icon div {
+  font-size: 10px;
+  font-weight: bold;
+  color: #dcd6ff;
+}
+
+.checkbox-group input[type="checkbox"]:checked + .checkbox-icon {
+  background: linear-gradient(180deg, rgba(124,58,237,0.35), rgba(109,40,217,0.22));
+  border-color: #7c3aed;
+  box-shadow: 0 6px 20px rgba(124,58,237,0.2);
+}
+
+.checkbox-group label:hover .checkbox-icon {
+  border-color: #7c3aed;
+  box-shadow: 0 6px 18px rgba(124,58,237,0.12);
+}
+
+.format-label {
+  font-size: 12px;
+  text-align: center;
+  margin-top: 2px;
+}
+
+/* RATINGS SECTION */
+.ratings-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+  margin: 20px 0;
+}
+
+.rating-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: #08060a;
+  border-radius: 8px;
+  border-left: 4px solid #7c3aed;
+  font-family: 'Pacifico', cursive;
+}
+
+.rating-row > span {
+  font-weight: normal;
+  min-width: 140px;
+  color: #e9d5ff;
+  font-size: 16px;
+}
+
+/* ⭐ STAR RATING */
+.stars {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  gap: 5px;
+}
+
+.stars input {
+  display: none;
+}
+
+.stars label {
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+  transition: color 0.2s ease;
+  margin: 0;
+}
+
+.stars label:hover,
+.stars label:hover ~ label {
+  color: #a78bfa;
+  text-shadow: 0 0 8px rgba(124,58,237,0.35);
+}
+
+.stars input:checked ~ label {
+  color: #7c3aed;
+  text-shadow: 0 0 10px rgba(124,58,237,0.45);
+}
+
+/* QUOTE AND IMAGES CONTAINER */
+.quote-images-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin: 20px 0;
+  align-items: stretch;
+  auto-rows: 1fr;
+}
+
+.images-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* QUOTE SECTION */
+.quote-images-container > div {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  height: 100%;
+}
+
+.quote-images-container > div:first-child textarea {
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  resize: vertical;
+  background: #08060a;
+  border: 2px solid #a78bfa;
+  color: #e9d5ff;
+  padding: 10px;
+  font-family: 'Pacifico', cursive;
+  font-size: 14px;
+}
+
+/* IMAGE GRID */
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  flex: 1;
+  align-content: start;
+}
+
+.image-grid .image-box {
+  height: 200px;
+}
+
+/* FAVORITE SECTIONS */
+.favorite-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.favorite-fields label {
+  width: 100%;
+}
+
+.favorite-fields textarea {
+  min-height: 100px;
+  resize: vertical;
+  background: #08060a;
+  border: 2px solid #a78bfa;
+  color: #e9d5ff;
+}
+
+/* RECOMMENDATION SECTION */
+.recommend-section-plain {
+  text-align: center;
+  margin-top: 40px;
+  padding: 30px 0;
+  font-family: 'Pacifico', cursive;
+}
+
+.recommend-section-plain p {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #e9d5ff;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+button {
+  font-size: 20px;
+  padding: 12px 30px;
+  cursor: pointer;
+  border: 2px solid #a78bfa;
+  background: #08060a;
+  color: #e9d5ff;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  font-family: 'Pacifico', cursive;
+}
+
+button:hover {
+  background: #7c3aed;
+  transform: scale(1.05);
+}
+
+.submit-btn {
+  background: linear-gradient(90deg,#7c3aed,#6d28d9);
+  color: #fff;
+  border: 2px solid #7c3aed;
+  padding: 14px 40px;
+  font-size: 18px;
+  margin-top: 15px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.submit-btn:hover {
+  filter: brightness(1.05);
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 36px;
+    padding: 12px 25px;
+  }
+
+  .section-title {
+    font-size: 18px;
+  }
+
+  .book-info {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .image-box {
+    min-height: 200px;
+  }
+
+  .ratings-container {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .rating-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .quote-images-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .image-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .image-grid .image-box {
+    height: 150px;
+  }
+
+  .favorite-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .rating-row > span {
+    min-width: auto;
+  }
+}
+
+/* Enable fixed background on large screens only (avoids mobile performance issues) */
+@media (min-width: 1024px) {
+  body {
+    background-attachment: fixed;
+  }
+}

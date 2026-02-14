@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Review — Part 2</title>
+<link rel="stylesheet" href="styles-part2.css">
+</head>
+
+<body>
+<div class="container">
+
+  <div class="header">
+    <h1> Book Review </h1>
+  </div>
+
+  <form id="bookReviewForm">
+
+    <!-- BOOK COVER & BASIC INFO -->
+    <div class="book-info">
+      <div class="book-cover-section">
+        <div class="section-title">Book Cover</div>
+        <div class="image-box" onclick="document.querySelector('input[name=bookCover]').click()">
+          <input type="file" name="bookCover">
+          <span>Click to upload cover</span>
+        </div>
+      </div>
+
+      <div class="book-details">
+        <div class="section-title">Book Details</div>
+        <label>
+          <span>Title</span>
+          <input type="text" name="title" placeholder="Enter book title" required>
+        </label>
+        <label>
+          <span>Author</span>
+          <input type="text" name="author" placeholder="Enter author name" required>
+        </label>
+        <label>
+          <span>Genre</span>
+          <input type="text" name="genre" placeholder="Enter genre">
+        </label>
+        <label>
+          <span>Days to Read</span>
+          <input type="text" name="days" placeholder="Enter number of days">
+        </label>
+        <label>
+          <span>Pages</span>
+          <input type="text" name="pages" placeholder="Enter number of pages">
+        </label>
+        <label>
+          <span>Favorite Character</span>
+          <input type="text" name="favCharacter" placeholder="Enter favorite character">
+        </label>
+        <label style="margin-top: 8px;">
+          <span>Format</span>
+          <div class="checkbox-group">
+            <label>
+              <input type="checkbox" name="format" value="book">
+              <div class="checkbox-icon">📖</div>
+              <div>Book</div>
+            </label>
+            <label>
+              <input type="checkbox" name="format" value="audiobook">
+              <div class="checkbox-icon">🎧</div>
+              <div>Audiobook</div>
+            </label>
+            <label>
+              <input type="checkbox" name="format" value="kindle">
+              <div class="checkbox-icon">📱</div>
+              <div>Kindle</div>
+            </label>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- RATINGS SECTION -->
+    <div class="section-title">Ratings</div>
+    <div class="ratings-container">
+      <div class="rating-row">
+        <span>Quality of Writing</span>
+        <div class="stars">
+          <input id="qw5" type="radio" name="qw" value="5"><label for="qw5">★</label>
+          <input id="qw4" type="radio" name="qw" value="4"><label for="qw4">★</label>
+          <input id="qw3" type="radio" name="qw" value="3"><label for="qw3">★</label>
+          <input id="qw2" type="radio" name="qw" value="2"><label for="qw2">★</label>
+          <input id="qw1" type="radio" name="qw" value="1"><label for="qw1">★</label>
+        </div>
+      </div>
+
+      <div class="rating-row">
+        <span>Plot Development</span>
+        <div class="stars">
+          <input id="pd5" type="radio" name="pd" value="5"><label for="pd5">★</label>
+          <input id="pd4" type="radio" name="pd" value="4"><label for="pd4">★</label>
+          <input id="pd3" type="radio" name="pd" value="3"><label for="pd3">★</label>
+          <input id="pd2" type="radio" name="pd" value="2"><label for="pd2">★</label>
+          <input id="pd1" type="radio" name="pd" value="1"><label for="pd1">★</label>
+        </div>
+      </div>
+
+      <div class="rating-row">
+        <span>Characters</span>
+        <div class="stars">
+          <input id="c5" type="radio" name="c" value="5"><label for="c5">★</label>
+          <input id="c4" type="radio" name="c" value="4"><label for="c4">★</label>
+          <input id="c3" type="radio" name="c" value="3"><label for="c3">★</label>
+          <input id="c2" type="radio" name="c" value="2"><label for="c2">★</label>
+          <input id="c1" type="radio" name="c" value="1"><label for="c1">★</label>
+        </div>
+      </div>
+
+      <div class="rating-row">
+        <span>Tension</span>
+        <div class="stars">
+          <input id="t5" type="radio" name="t" value="5"><label for="t5">★</label>
+          <input id="t4" type="radio" name="t" value="4"><label for="t4">★</label>
+          <input id="t3" type="radio" name="t" value="3"><label for="t3">★</label>
+          <input id="t2" type="radio" name="t" value="2"><label for="t2">★</label>
+          <input id="t1" type="radio" name="t" value="1"><label for="t1">★</label>
+        </div>
+      </div>
+      
+      <div class="rating-row">
+        <span>Sadness</span>
+        <div class="stars">
+          <input id="e5" type="radio" name="e" value="5"><label for="e5">★</label>
+          <input id="e4" type="radio" name="e" value="4"><label for="e4">★</label>
+          <input id="e3" type="radio" name="e" value="3"><label for="e3">★</label>
+          <input id="e2" type="radio" name="e" value="2"><label for="e2">★</label>
+          <input id="e1" type="radio" name="e" value="1"><label for="e1">★</label>
+        </div>
+      </div>
+
+      <div class="rating-row">
+        <span>Romance</span>
+        <div class="stars">
+          <input id="f5" type="radio" name="f" value="5"><label for="f5">★</label>
+          <input id="f4" type="radio" name="f" value="4"><label for="f4">★</label>
+          <input id="f3" type="radio" name="f" value="3"><label for="f3">★</label>
+          <input id="f2" type="radio" name="f" value="2"><label for="f2">★</label>
+          <input id="f1" type="radio" name="f" value="1"><label for="f1">★</label>
+        </div>
+      </div>
+
+      <div class="rating-row">
+        <span>Funny</span>
+        <div class="stars">
+          <input id="g5" type="radio" name="g" value="5"><label for="g5">★</label>
+          <input id="g4" type="radio" name="g" value="4"><label for="g4">★</label>
+          <input id="g3" type="radio" name="g" value="3"><label for="g3">★</label>
+          <input id="g2" type="radio" name="g" value="2"><label for="g2">★</label>
+          <input id="g1" type="radio" name="g" value="1"><label for="g1">★</label>
+        </div>
+      </div>
+
+      <div class="rating-row">
+        <span>Ease of Reading</span>
+        <div class="stars">
+          <input id="h5" type="radio" name="h" value="5"><label for="h5">★</label>
+          <input id="h4" type="radio" name="h" value="4"><label for="h4">★</label>
+          <input id="h3" type="radio" name="h" value="3"><label for="h3">★</label>
+          <input id="h2" type="radio" name="h" value="2"><label for="h2">★</label>
+          <input id="t1" type="radio" name="h" value="1"><label for="h1">★</label>
+        </div>
+      </div>
+
+      <div class="rating-row">
+        <span>Addictive</span>
+        <div class="stars">
+          <input id="i5" type="radio" name="i" value="5"><label for="i5">★</label>
+          <input id="i4" type="radio" name="i" value="4"><label for="i4">★</label>
+          <input id="i3" type="radio" name="i" value="3"><label for="i3">★</label>
+          <input id="i2" type="radio" name="i" value="2"><label for="i2">★</label>
+          <input id="i1" type="radio" name="i" value="1"><label for="i1">★</label>
+        </div>
+      </div>      
+
+      <div class="rating-row">
+        <span>Ending</span>
+        <div class="stars">
+          <input id="j5" type="radio" name="j" value="5"><label for="j5">★</label>
+          <input id="j4" type="radio" name="j" value="4"><label for="j4">★</label>
+          <input id="j3" type="radio" name="j" value="3"><label for="j3">★</label>
+          <input id="j2" type="radio" name="j" value="2"><label for="j2">★</label>
+          <input id="j1" type="radio" name="j" value="1"><label for="j1">★</label>
+        </div>
+      </div>   
+    </div>
+      
+    <!-- QUOTE AND IMAGES SECTION -->
+    <div class="quote-images-container">
+      <div>
+        <div class="section-title">Favourite Quote</div>
+        <textarea name="quote" placeholder="Share your favorite quote from the book..."></textarea>
+      </div>
+
+      <div>
+        <div class="section-title">Pictures That Describe the Book</div>
+        <div class="image-grid">
+          <div class="image-box" onclick="this.querySelector('input').click()">
+            <input type="file" name="images">
+            <span>Click to upload</span>
+          </div>
+          <div class="image-box" onclick="this.querySelector('input').click()">
+            <input type="file" name="images">
+            <span>Click to upload</span>
+          </div>
+          <div class="image-box" onclick="this.querySelector('input').click()">
+            <input type="file" name="images">
+            <span>Click to upload</span>
+          </div>
+          <div class="image-box" onclick="this.querySelector('input').click()">
+            <input type="file" name="images">
+            <span>Click to upload</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAVORITES SECTION -->
+    <div class="section-title">Your Favorites</div>
+    <div class="favorite-fields">
+      <label>
+        <span>Favourite Chapter</span>
+        <textarea name="favChapter" placeholder="Enter your favorite chapter"></textarea>
+      </label>
+      <label>
+        <span>Favourite Scene</span>
+        <textarea name="favScene" placeholder="Enter your favorite scene"></textarea>
+      </label>
+    </div>
+
+    <!-- RECOMMENDATION SECTION -->
+    <div class="recommend-section-plain">
+      <p>Would I Recommend This Book?</p>
+      <div class="button-group">
+        <button type="button" value="yes" onclick="selectRecommend(this)">✔ Yes</button>
+        <button type="button" value="no" onclick="selectRecommend(this)">✖ No</button>
+      </div>
+      <input type="hidden" name="recommend" id="recommendValue">
+      <button type="submit" class="submit-btn">Submit Review</button>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
