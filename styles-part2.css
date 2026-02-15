@@ -113,7 +113,7 @@ label span {
   font-size: 14px;
 }
 
-input[type="text"], textarea {
+input[type="text"], textarea, select {
   width: 100%;
   border: 2px solid #a78bfa;
   background: #0b0810; /* black */
@@ -125,10 +125,55 @@ input[type="text"], textarea {
   border-radius: 6px;
 }
 
-input[type="text"]:focus, textarea:focus {
+input[type="text"]:focus, textarea:focus, select:focus {
   outline: none;
   border-color: #7c3aed;
   box-shadow: 0 0 10px rgba(124,58,237,0.25);
+}
+
+select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, #a78bfa 50%),
+    linear-gradient(135deg, #a78bfa 50%, transparent 50%);
+  background-position: calc(100% - 18px) calc(1em + 2px), calc(100% - 12px) calc(1em + 2px);
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  padding-right: 32px;
+}
+
+.landing-actions {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin: 60px 0;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: linear-gradient(180deg, rgba(12,9,18,0.95), rgba(8,6,12,0.98));
+  border: 1px solid rgba(167,139,250,0.2);
+  border-radius: 10px;
+  padding: 16px 18px;
+  box-shadow: 0 10px 24px rgba(90,30,140,0.35);
+}
+
+.card-title {
+  font-size: 20px;
+  margin-bottom: 8px;
+  color: #e9d5ff;
+}
+
+.card-meta {
+  font-size: 14px;
+  color: #c4b5fd;
+  margin-top: 4px;
 }
 
 textarea {
