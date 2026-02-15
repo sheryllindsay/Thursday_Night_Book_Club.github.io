@@ -27,8 +27,18 @@ function previewImage(input, boxId) {
 
 async function loadBooksFromFirestore() {
   try {
+    // Wait for Firebase services to be available
+    let attempts = 0;
+    while (!window.firebaseServices?.db && attempts < 50) {
+      await new Promise(resolve => setTimeout(resolve, 100));
+      attempts++;
+    }
+
     const { db } = window.firebaseServices;
-    if (!db) return;
+    if (!db) {
+      console.error('Firebase DB not available after waiting');
+      return;
+    }
 
     const snapshot = await getDocs(collection(db, 'Book-of-the-month'));
     const select = document.getElementById('bookNameSelect');
@@ -48,6 +58,8 @@ async function loadBooksFromFirestore() {
       option.textContent = bookName;
       select.appendChild(option);
     });
+
+    console.log(`Loaded ${booksData.size} books from Firestore`);
   } catch (error) {
     console.error('Error loading books:', error);
   }
