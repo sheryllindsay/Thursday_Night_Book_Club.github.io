@@ -75,7 +75,7 @@ async function loadBooksFromFirestore() {
     const seenTitles = new Set();
     snapshot.forEach(doc => {
       const data = doc.data();
-      const bookName = data.BookName || data['Book Name'] || data.bookName || data.title;
+      const bookName = data.BookName || data['BookName'] || data.bookName || data.title;
       if (!bookName || seenTitles.has(bookName)) return;
 
       seenTitles.add(bookName);
@@ -110,7 +110,7 @@ function handleBookSelection() {
     }
 
     // Update book cover preview
-    const coverUrl = bookData.BookCoverUrl || bookData.bookCoverURL || bookData.coverUrl || bookData['Book Cover Url'] || bookData['BookCoverUrl'];
+    const coverUrl = bookData.BookCoverUrl || bookData.bookCoverURL || bookData.coverUrl || bookData['Book Cover Url'] || bookData['BookCoverUrl'] || bookData['book-cover'] || bookData['Book-Cover'] || bookData['Book-Cover-Url'];
     if (coverUrl) {
       selectedCoverUrl = coverUrl;
       const previewImg = document.getElementById('bookCoverPreview');
