@@ -333,13 +333,36 @@ textarea {
   font-size: 14px;
 }
 
+.quote-images-container .favorite-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 0;
+  flex: 1;
+}
+
+.quote-images-container .favorite-fields textarea {
+  flex: 1;
+  min-height: 0;
+}
+
 /* IMAGE GRID */
 .image-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 15px;
   flex: 1;
   align-content: start;
+}
+
+.image-grid .image-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.image-grid .image-item .card-meta {
+  text-align: center;
 }
 
 .image-grid .image-box {

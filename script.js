@@ -189,10 +189,13 @@ async function submitReview() {
 
     console.log('Submitting review data:', reviewData);
 
+    // Collect image URLs from text inputs
+    const imageUrl1 = formData.get('imageUrl1');
+    const imageUrl2 = formData.get('imageUrl2');
+    reviewData.imageURLs = [imageUrl1, imageUrl2].filter(Boolean);
+
     // Upload additional images if selected
     const imageInputs = document.querySelectorAll('input[name="images"]');
-    reviewData.imageURLs = [];
-    
     for (let input of imageInputs) {
       if (input.files && input.files[0]) {
         try {

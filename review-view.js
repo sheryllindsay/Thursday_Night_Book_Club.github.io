@@ -54,7 +54,7 @@ function setCover(url) {
 }
 
 function setImages(urls) {
-  for (let i = 1; i <= 4; i++) {
+  for (let i = 1; i <= 2; i++) {
     const img = document.getElementById(`imagePreview${i}`);
     const text = document.getElementById(`imageText${i}`);
     const url = Array.isArray(urls) ? urls[i - 1] : '';

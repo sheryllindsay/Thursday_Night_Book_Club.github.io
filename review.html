@@ -222,7 +222,7 @@
       </div>   
     </div>
       
-    <!-- QUOTE AND IMAGES SECTION -->
+    <!-- QUOTE AND FAVORITES SECTION -->
     <div class="quote-images-container">
       <div>
         <div class="section-title">Favourite Quote</div>
@@ -230,44 +230,32 @@
       </div>
 
       <div>
-        <div class="section-title">Pictures That Describe the Book</div>
-        <div class="image-grid">
-          <div class="image-box" onclick="this.querySelector('input').click()" id="imageBox1">
-            <input type="file" name="images" id="imageInput1" accept="image/*">
-            <span id="imageText1">Click to upload</span>
-            <img id="imagePreview1" style="display: none; width: 100%; height: 100%; object-fit: cover;">
-          </div>
-          <div class="image-box" onclick="this.querySelector('input').click()" id="imageBox2">
-            <input type="file" name="images" id="imageInput2" accept="image/*">
-            <span id="imageText2">Click to upload</span>
-            <img id="imagePreview2" style="display: none; width: 100%; height: 100%; object-fit: cover;">
-          </div>
-          <div class="image-box" onclick="this.querySelector('input').click()" id="imageBox3">
-            <input type="file" name="images" id="imageInput3" accept="image/*">
-            <span id="imageText3">Click to upload</span>
-            <img id="imagePreview3" style="display: none; width: 100%; height: 100%; object-fit: cover;">
-          </div>
-          <div class="image-box" onclick="this.querySelector('input').click()" id="imageBox4">
-            <input type="file" name="images" id="imageInput4" accept="image/*">
-            <span id="imageText4">Click to upload</span>
-            <img id="imagePreview4" style="display: none; width: 100%; height: 100%; object-fit: cover;">
-          </div>
+        <div class="section-title">Your Favorites</div>
+        <div class="favorite-fields">
+          <label>
+            <span>Favourite Chapter</span>
+            <textarea name="favChapter" placeholder="Enter your favorite chapter"></textarea>
+          </label>
+          <label>
+            <span>Favourite Scene</span>
+            <textarea name="favScene" placeholder="Enter your favorite scene"></textarea>
+          </label>
         </div>
       </div>
     </div>
 
-    <!-- FAVORITES SECTION -->
-    <div class="section-title">Your Favorites</div>
-    <div class="favorite-fields">
-      <label>
-        <span>Favourite Chapter</span>
-        <textarea name="favChapter" placeholder="Enter your favorite chapter"></textarea>
-      </label>
-      <label>
-        <span>Favourite Scene</span>
-        <textarea name="favScene" placeholder="Enter your favorite scene"></textarea>
-      </label>
-    </div>
+      <!-- PICTURES SECTION -->
+      <div class="section-title">Pictures That Describe the Book</div>
+      <div class="favorite-fields">
+        <label>
+          <span>First Image's URL</span>
+          <input type="text" name="imageUrl1" placeholder="https://...">
+        </label>
+        <label>
+          <span>Second Image's URL</span>
+          <input type="text" name="imageUrl2" placeholder="https://...">
+        </label>
+      </div>
 
     <!-- RECOMMENDATION SECTION -->
     <div class="recommend-section-plain">
