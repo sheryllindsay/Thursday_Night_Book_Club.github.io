@@ -112,12 +112,20 @@ function handleBookSelection() {
     // Update book cover preview
     const coverUrl = bookData.BookCoverUrl || bookData.bookCoverURL || bookData.coverUrl || bookData['Book Cover Url'] || bookData['BookCoverUrl'] || bookData['book-cover'] || bookData['Book-Cover'] || bookData['Book-Cover-Url'];
     if (coverUrl) {
-      const normalizedCoverUrl = String(coverUrl).trim().replace(/\\/g, '/').replace(/^\.\//, '');
+      const normalizedCoverUrl = String(coverUrl)
+        .trim()
+        .replace(/\\/g, '/')
+        .replace(/^\.\//, '')
+        .replace(/^['"]|['"]$/g, '');
       const repoBaseUrl = 'https://sheryllindsay.github.io/Thursday_Night_Book_Club.github.io/';
       const isAbsolute = /^(https?:)?\/\//i.test(normalizedCoverUrl);
+      const cleanedCoverUrl = normalizedCoverUrl.replace(
+        /https:\/\/sheryllindsay\.github\.io\/Thursday_Night_Book_Club\.github\.io\//gi,
+        repoBaseUrl
+      );
       const resolvedCoverUrl = isAbsolute
-        ? normalizedCoverUrl
-        : new URL(normalizedCoverUrl.replace(/^\//, ''), repoBaseUrl).toString();
+        ? cleanedCoverUrl
+        : new URL(cleanedCoverUrl.replace(/^\//, ''), repoBaseUrl).toString();
 
       selectedCoverUrl = resolvedCoverUrl;
       const previewImg = document.getElementById('bookCoverPreview');
