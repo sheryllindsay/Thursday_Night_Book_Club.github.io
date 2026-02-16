@@ -113,10 +113,10 @@ function handleBookSelection() {
     const coverUrl = bookData.BookCoverUrl || bookData.bookCoverURL || bookData.coverUrl || bookData['Book Cover Url'] || bookData['BookCoverUrl'] || bookData['book-cover'] || bookData['Book-Cover'] || bookData['Book-Cover-Url'];
     if (coverUrl) {
       const normalizedCoverUrl = String(coverUrl).trim().replace(/\\/g, '/').replace(/^\.\//, '');
-      const baseUrl = new URL('./', window.location.href);
+      const repoBaseUrl = 'https://sheryllindsay.github.io/Thursday_Night_Book_Club.github.io/';
       const resolvedCoverUrl = /^(https?:)?\/\//i.test(normalizedCoverUrl)
         ? normalizedCoverUrl
-        : new URL(normalizedCoverUrl.replace(/^\//, ''), baseUrl).toString();
+        : new URL(normalizedCoverUrl.replace(/^\//, ''), repoBaseUrl).toString();
 
       selectedCoverUrl = resolvedCoverUrl;
       const previewImg = document.getElementById('bookCoverPreview');
