@@ -152,9 +152,11 @@ async function submitReview() {
     }
 
     // Show loading state
-    const submitBtn = document.querySelector('button[type="submit"]');
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Saving...';
+    const submitBtn = document.getElementById('submitReviewBtn');
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Saving...';
+    }
 
     // Collect form data
     const formData = new FormData(document.getElementById('bookReviewForm'));
@@ -244,9 +246,11 @@ async function submitReview() {
     alert('Error saving review: ' + error.message);
   } finally {
     // Restore button state
-    const submitBtn = document.querySelector('button[type="submit"]');
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Submit Review';
+    const submitBtn = document.getElementById('submitReviewBtn');
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit Review';
+    }
   }
 }
 
