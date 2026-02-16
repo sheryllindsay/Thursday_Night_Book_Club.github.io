@@ -26,6 +26,10 @@ function handleStartReview() {
 function createReviewCard(docId, data) {
   const card = document.createElement('div');
   card.className = 'card';
+  card.style.cursor = 'pointer';
+  card.addEventListener('click', () => {
+    window.location.href = `review-view.html?id=${encodeURIComponent(docId)}`;
+  });
 
   const title = document.createElement('div');
   title.className = 'card-title';
@@ -35,13 +39,8 @@ function createReviewCard(docId, data) {
   reviewer.className = 'card-meta';
   reviewer.textContent = `Reviewer: ${data.reviewerName || 'Unknown'}`;
 
-  const doc = document.createElement('div');
-  doc.className = 'card-meta';
-  doc.textContent = `Doc ID: ${docId}`;
-
   card.appendChild(title);
   card.appendChild(reviewer);
-  card.appendChild(doc);
 
   return card;
 }

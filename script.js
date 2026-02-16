@@ -208,8 +208,7 @@ async function submitReview() {
     console.log('Saving to Firestore');
     const docRef = await addDoc(collection(db, 'bookReviews'), reviewData);
     
-    // Success message
-    alert('Review saved successfully!');
+    // Success redirect
     console.log('Document written with ID: ', docRef.id);
     
     // Reset form
@@ -230,6 +229,8 @@ async function submitReview() {
       document.getElementById('imagePreview' + i).style.display = 'none';
       document.getElementById('imageText' + i).style.display = 'block';
     }
+
+    window.location.href = 'index.html';
 
   } catch (error) {
     console.error('Error submitting review: ', error);
