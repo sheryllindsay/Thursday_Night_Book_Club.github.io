@@ -234,12 +234,14 @@ async function submitReview() {
       bookCoverText.textContent = 'Please select a Book';
       bookCoverText.style.display = 'block';
     }
-    for (let i = 1; i <= 4; i++) {
-      document.getElementById('imagePreview' + i).style.display = 'none';
-      document.getElementById('imageText' + i).style.display = 'block';
+    for (let i = 1; i <= 2; i++) {
+      const preview = document.getElementById('imagePreview' + i);
+      const text = document.getElementById('imageText' + i);
+      if (preview) preview.style.display = 'none';
+      if (text) text.style.display = 'block';
     }
 
-    window.location.href = 'index.html';
+    window.location.replace('index.html');
 
   } catch (error) {
     console.error('Error submitting review: ', error);
