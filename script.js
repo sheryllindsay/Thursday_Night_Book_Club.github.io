@@ -152,7 +152,7 @@ async function submitReview() {
     }
 
     // Show loading state
-    const submitBtn = document.querySelector('.submit-btn');
+    const submitBtn = document.querySelector('button[type="submit"]');
     submitBtn.disabled = true;
     submitBtn.textContent = 'Saving...';
 
@@ -244,7 +244,7 @@ async function submitReview() {
     alert('Error saving review: ' + error.message);
   } finally {
     // Restore button state
-    const submitBtn = document.querySelector('.submit-btn');
+    const submitBtn = document.querySelector('button[type="submit"]');
     submitBtn.disabled = false;
     submitBtn.textContent = 'Submit Review';
   }
