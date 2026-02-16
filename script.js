@@ -114,20 +114,16 @@ function handleBookSelection() {
     if (coverUrl) {
       const normalizedCoverUrl = String(coverUrl).trim().replace(/\\/g, '/').replace(/^\.\//, '');
       const repoBaseUrl = 'https://sheryllindsay.github.io/Thursday_Night_Book_Club.github.io/';
-      const resolvedCoverUrl = /^(https?:)?\/\//i.test(normalizedCoverUrl)
+      const isAbsolute = /^(https?:)?\/\//i.test(normalizedCoverUrl);
+      const resolvedCoverUrl = isAbsolute
         ? normalizedCoverUrl
         : new URL(normalizedCoverUrl.replace(/^\//, ''), repoBaseUrl).toString();
 
-      const repoScopedCoverUrl = resolvedCoverUrl.replace(
-        /^https:\/\/sheryllindsay\.github\.io\//i,
-        repoBaseUrl
-      );
-
-      selectedCoverUrl = repoScopedCoverUrl;
+      selectedCoverUrl = resolvedCoverUrl;
       const previewImg = document.getElementById('bookCoverPreview');
       const textSpan = document.getElementById('bookCoverText');
       if (previewImg) {
-        previewImg.src = repoScopedCoverUrl;
+        previewImg.src = resolvedCoverUrl;
         previewImg.style.display = 'block';
         if (textSpan) textSpan.style.display = 'none';
       }
