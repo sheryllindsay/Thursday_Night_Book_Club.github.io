@@ -112,13 +112,11 @@ function handleBookSelection() {
     // Update book cover preview
     const coverUrl = bookData.BookCoverUrl || bookData.bookCoverURL || bookData.coverUrl || bookData['Book Cover Url'] || bookData['BookCoverUrl'] || bookData['book-cover'] || bookData['Book-Cover'] || bookData['Book-Cover-Url'];
     if (coverUrl) {
-      const normalizedCoverUrl = String(coverUrl).trim();
+      const normalizedCoverUrl = String(coverUrl).trim().replace(/\\/g, '/').replace(/^\.\//, '');
+      const baseUrl = new URL('./', window.location.href);
       const resolvedCoverUrl = /^(https?:)?\/\//i.test(normalizedCoverUrl)
         ? normalizedCoverUrl
-        : new URL(
-            normalizedCoverUrl.startsWith('/') ? normalizedCoverUrl : `/${normalizedCoverUrl}`,
-            window.location.origin
-          ).toString();
+        : new URL(normalizedCoverUrl.replace(/^\//, ''), baseUrl).toString();
 
       selectedCoverUrl = resolvedCoverUrl;
       const previewImg = document.getElementById('bookCoverPreview');
