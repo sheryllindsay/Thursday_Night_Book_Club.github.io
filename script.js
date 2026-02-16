@@ -118,11 +118,16 @@ function handleBookSelection() {
         ? normalizedCoverUrl
         : new URL(normalizedCoverUrl.replace(/^\//, ''), repoBaseUrl).toString();
 
-      selectedCoverUrl = resolvedCoverUrl;
+      const repoScopedCoverUrl = resolvedCoverUrl.replace(
+        /^https:\/\/sheryllindsay\.github\.io\//i,
+        repoBaseUrl
+      );
+
+      selectedCoverUrl = repoScopedCoverUrl;
       const previewImg = document.getElementById('bookCoverPreview');
       const textSpan = document.getElementById('bookCoverText');
       if (previewImg) {
-        previewImg.src = resolvedCoverUrl;
+        previewImg.src = repoScopedCoverUrl;
         previewImg.style.display = 'block';
         if (textSpan) textSpan.style.display = 'none';
       }
