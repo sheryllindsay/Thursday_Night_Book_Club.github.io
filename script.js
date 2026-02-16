@@ -3,6 +3,7 @@ import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/fireba
 
 let defaultCoverUrl = '';
 let booksData = new Map();
+let selectedCoverUrl = '';
 
 // Image preview function
 function previewImage(input, boxId) {
@@ -40,26 +41,53 @@ async function loadBooksFromFirestore() {
       return;
     }
 
-    const snapshot = await getDocs(collection(db, 'Book-of-the-month'));
     const select = document.getElementById('bookNameSelect');
     if (!select) return;
 
+    const collectionNames = [
+      'Book-of-the-Month',
+      'Book-of-the-month',
+      'Book-Of-The Month',
+      'Book-Of-The-Month'
+    ];
+
+    let snapshot = null;
+    let usedCollection = '';
+
+    for (const name of collectionNames) {
+      try {
+        const result = await getDocs(collection(db, name));
+        if (!result.empty) {
+          snapshot = result;
+          usedCollection = name;
+          break;
+        }
+      } catch (error) {
+        console.warn(`Unable to read collection: ${name}`, error);
+      }
+    }
+
+    if (!snapshot) {
+      console.error('No accessible Book-of-the-month collection found');
+      return;
+    }
+
+    const seenTitles = new Set();
     snapshot.forEach(doc => {
       const data = doc.data();
-      const bookName = data.BookName || data.bookName || data.title;
-      if (!bookName) return;
+      const bookName = data.BookName || data['Book Name'] || data.bookName || data.title;
+      if (!bookName || seenTitles.has(bookName)) return;
 
-      // Store complete book data
+      seenTitles.add(bookName);
       booksData.set(bookName, data);
 
-      // Add option to dropdown
       const option = document.createElement('option');
       option.value = bookName;
       option.textContent = bookName;
       select.appendChild(option);
     });
 
-    console.log(`Loaded ${booksData.size} books from Firestore`);
+    console.log(`Loaded ${booksData.size} books from Firestore (${usedCollection})`);
   } catch (error) {
     console.error('Error loading books:', error);
   }
@@ -78,12 +106,13 @@ function handleBookSelection() {
     // Autofill author
     const authorInput = document.querySelector('input[name="author"]');
     if (authorInput) {
-      authorInput.value = bookData.Author || bookData.author || '';
+      authorInput.value = bookData.Author || bookData.author || bookData['Author'] || '';
     }
 
     // Update book cover preview
-    const coverUrl = bookData.BookCoverUrl || bookData.bookCoverURL || bookData.coverUrl;
+    const coverUrl = bookData.BookCoverUrl || bookData.bookCoverURL || bookData.coverUrl || bookData['Book Cover Url'] || bookData['BookCoverUrl'];
     if (coverUrl) {
+      selectedCoverUrl = coverUrl;
       const previewImg = document.getElementById('bookCoverPreview');
       const textSpan = document.getElementById('bookCoverText');
       if (previewImg) {
@@ -139,24 +168,11 @@ async function submitReview() {
       favoriteQuote: formData.get('quote'),
       favoriteChapter: formData.get('favChapter'),
       favoriteScene: formData.get('favScene'),
-      recommend: formData.get('recommend')
+      recommend: formData.get('recommend'),
+      bookCoverURL: selectedCoverUrl || ''
     };
 
     console.log('Submitting review data:', reviewData);
-
-    // Upload book cover if selected
-    const bookCoverInput = document.querySelector('input[name="bookCover"]');
-    if (bookCoverInput && bookCoverInput.files && bookCoverInput.files[0]) {
-      try {
-        const coverFile = bookCoverInput.files[0];
-        const coverRef = ref(storage, `book-covers/${Date.now()}_${coverFile.name}`);
-        await uploadBytes(coverRef, coverFile);
-        reviewData.bookCoverURL = await getDownloadURL(coverRef);
-        console.log('Book cover uploaded');
-      } catch (uploadError) {
-        console.error('Error uploading book cover:', uploadError);
-      }
-    }
 
     // Upload additional images if selected
     const imageInputs = document.querySelectorAll('input[name="images"]');
@@ -231,14 +247,6 @@ function initializeForm() {
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
       await submitReview();
-    });
-  }
-
-  // Attach image preview handlers
-  const bookCoverInput = document.getElementById('bookCoverInput');
-  if (bookCoverInput) {
-    bookCoverInput.addEventListener('change', function() {
-      previewImage(this, 'bookCoverBox');
     });
   }
 
