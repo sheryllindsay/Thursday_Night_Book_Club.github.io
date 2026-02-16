@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thursday Night Book Club</title>
+<link rel="stylesheet" href="styles-part2.css">
+</head>
+
+<!-- Firebase Connection -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-analytics.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBoEb3E2D0_cq5LVZ90ZLSDvJJlUJxtUIo",
+    authDomain: "thursday-night-book-club.firebaseapp.com",
+    projectId: "thursday-night-book-club",
+    storageBucket: "thursday-night-book-club.firebasestorage.app",
+    messagingSenderId: "984125064488",
+    appId: "1:984125064488:web:4a872c2677e62424193c1d",
+    measurementId: "G-0GLPH7YLNF"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const db = getFirestore(app);
+
+  // Export Firebase services globally
+  window.firebaseServices = { db, app };
+  console.log("Firebase initialized successfully!");
+</script>
+
+<body>
+<div class="container">
+
+  <div class="header">
+    <h1> Book Review </h1>
+  </div>
+
+  <form id="bookReviewForm">
+
+    <!-- BOOK COVER & BASIC INFO -->
+    <div class="book-info">
+      <div class="book-cover-section">
+        <div class="section-title">Book Cover</div>
+        <div class="image-box" id="bookCoverBox">
+          <span id="bookCoverText" style="display: block;">No cover available</span>
+          <img id="bookCoverPreview" src="" style="display: none; width: 100%; height: 100%; object-fit: cover;">
+        </div>
+      </div>
+
+      <div class="book-details">
+        <div class="section-title">Book Details</div>
+        <label>
+          <span>Book Name</span>
+          <select name="title" id="bookNameSelect" required>
+            <option value="" disabled selected>Loading...</option>
+          </select>
+        </label>
+        <label>
+          <span>Reviewer Name</span>
+          <input type="text" name="reviewerName" placeholder="Enter your name" required>
+        </label>
+        <label>
+          <span>Author</span>
+          <input type="text" name="author" placeholder="Enter author name" required>
+        </label>
+        <label>
+          <span>Genre</span>
+          <input type="text" name="genre" placeholder="Enter genre">
+        </label>
+        <label>
+          <span>Days to Read</span>
+          <input type="text" name="days" placeholder="Enter number of days">
+        </label>
+        <label>
+          <span>Pages</span>
+          <input type="text" name="pages" placeholder="Enter number of pages">
+        </label>
+        <label>
+          <span>Favorite Character</span>
+          <input type="text" name="favCharacter" placeholder="Enter favorite character">
+        </label>
+        <label style="margin-top: 8px;">
+          <span>Format</span>
+          <div class="checkbox-group">
+            <label>
+              <input type="checkbox" name="format" value="book">
+              <div class="checkbox-icon">📖</div>
+              <div>Book</div>
+            </label>
+            <label>
+              <input type="checkbox" name="format" value="audiobook">
+              <div class="checkbox-icon">🎧</div>
+              <div>Audiobook</div>
+            </label>
+            <label>
+              <input type="checkbox" name="format" value="kindle">
+              <div class="checkbox-icon">📱</div>
+              <div>Kindle</div>
+            </label>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- RATINGS SECTION -->
+    <div class="section-title">Ratings</div>
+    <div class="ratings-container">
+      <div class="rating-row">
+        <span>Quality of Writing</span>
+        <div class="stars">
+          <input id="qw5" type="radio" name="qw" value="5"><label for="qw5">★</label>
+          <input id="qw4" type="radio" name="qw" value="4"><label for="qw4">★</label>
+          <input id="qw3" type="radio" name="qw" value="3"><label for="qw3">★</label>
+          <input id="qw2" type="radio" name="qw" value="2"><label for="qw2">★</label>
+          <input id="qw1" type="radio" name="qw" value="1"><label for="qw1">★</label>
+        </div>
+      </div>
+
+      <div class="rating-row">
+        <span>Plot Development</span>
+        <div class="stars">
+          <input id="pd5" type="radio" name="pd" value="5"><label for="pd5">★</label>
+          <input id="pd4" type="radio" name="pd" value="4"><label for="pd4">★</label>
+          <input id="pd3" type="radio" name="pd" value="3"><label for="pd3">★</label>
+          <input id="pd2" type="radio" name="pd" value="2"><label for="pd2">★</label>
+          <input id="pd1" type="radio" name="pd" value="1"><label for="pd1">★</label>
+        </div>
+      </div>
+
+      <div class="rating-row">
+        <span>Characters</span>
+        <div class="stars">
+          <input id="c5" type="radio" name="c" value="5"><label for="c5">★</label>
+          <input id="c4" type="radio" name="c" value="4"><label for="c4">★</label>
+          <input id="c3" type="radio" name="c" value="3"><label for="c3">★</label>
+          <input id="c2" type="radio" name="c" value="2"><label for="c2">★</label>
+          <input id="c1" type="radio" name="c" value="1"><label for="c1">★</label>
+        </div>
+      </div>
+
+      <div class="rating-row">
+        <span>Tension</span>
+        <div class="stars">
+          <input id="t5" type="radio" name="t" value="5"><label for="t5">★</label>
+          <input id="t4" type="radio" name="t" value="4"><label for="t4">★</label>
+          <input id="t3" type="radio" name="t" value="3"><label for="t3">★</label>
+          <input id="t2" type="radio" name="t" value="2"><label for="t2">★</label>
+          <input id="t1" type="radio" name="t" value="1"><label for="t1">★</label>
+        </div>
+      </div>
+      
+      <div class="rating-row">
+        <span>Sadness</span>
+        <div class="stars">
+          <input id="e5" type="radio" name="e" value="5"><label for="e5">★</label>
+          <input id="e4" type="radio" name="e" value="4"><label for="e4">★</label>
+          <input id="e3" type="radio" name="e" value="3"><label for="e3">★</label>
+          <input id="e2" type="radio" name="e" value="2"><label for="e2">★</label>
+          <input id="e1" type="radio" name="e" value="1"><label for="e1">★</label>
+        </div>
+      </div>
+
+      <div class="rating-row">
+        <span>Romance</span>
+        <div class="stars">
+          <input id="f5" type="radio" name="f" value="5"><label for="f5">★</label>
+          <input id="f4" type="radio" name="f" value="4"><label for="f4">★</label>
+          <input id="f3" type="radio" name="f" value="3"><label for="f3">★</label>
+          <input id="f2" type="radio" name="f" value="2"><label for="f2">★</label>
+          <input id="f1" type="radio" name="f" value="1"><label for="f1">★</label>
+        </div>
+      </div>
+
+      <div class="rating-row">
+        <span>Funny</span>
+        <div class="stars">
+          <input id="g5" type="radio" name="g" value="5"><label for="g5">★</label>
+          <input id="g4" type="radio" name="g" value="4"><label for="g4">★</label>
+          <input id="g3" type="radio" name="g" value="3"><label for="g3">★</label>
+          <input id="g2" type="radio" name="g" value="2"><label for="g2">★</label>
+          <input id="g1" type="radio" name="g" value="1"><label for="g1">★</label>
+        </div>
+      </div>
+
+      <div class="rating-row">
+        <span>Ease of Reading</span>
+        <div class="stars">
+          <input id="h5" type="radio" name="h" value="5"><label for="h5">★</label>
+          <input id="h4" type="radio" name="h" value="4"><label for="h4">★</label>
+          <input id="h3" type="radio" name="h" value="3"><label for="h3">★</label>
+          <input id="h2" type="radio" name="h" value="2"><label for="h2">★</label>
+          <input id="t1" type="radio" name="h" value="1"><label for="h1">★</label>
+        </div>
+      </div>
+
+      <div class="rating-row">
+        <span>Ending</span>
+        <div class="stars">
+          <input id="i5" type="radio" name="i" value="5"><label for="i5">★</label>
+          <input id="i4" type="radio" name="i" value="4"><label for="i4">★</label>
+          <input id="i3" type="radio" name="i" value="3"><label for="i3">★</label>
+          <input id="i2" type="radio" name="i" value="2"><label for="i2">★</label>
+          <input id="i1" type="radio" name="i" value="1"><label for="i1">★</label>
+        </div>
+      </div>      
+
+      <div class="rating-row">
+        <span>Overall</span>
+        <div class="stars">
+          <input id="j5" type="radio" name="j" value="5"><label for="j5">★</label>
+          <input id="j4" type="radio" name="j" value="4"><label for="j4">★</label>
+          <input id="j3" type="radio" name="j" value="3"><label for="j3">★</label>
+          <input id="j2" type="radio" name="j" value="2"><label for="j2">★</label>
+          <input id="j1" type="radio" name="j" value="1"><label for="j1">★</label>
+        </div>
+      </div>   
+    </div>
+      
+    <!-- QUOTE AND FAVORITES SECTION -->
+    <div class="quote-images-container">
+      <div>
+        <div class="section-title">Favourite Quote</div>
+        <textarea name="quote" placeholder="Share your favorite quote from the book..."></textarea>
+      </div>
+
+      <div>
+        <div class="section-title">Your Favorites</div>
+        <div class="favorite-fields">
+          <label>
+            <span>Favourite Chapter</span>
+            <textarea name="favChapter" placeholder="Enter your favorite chapter"></textarea>
+          </label>
+          <label>
+            <span>Favourite Scene</span>
+            <textarea name="favScene" placeholder="Enter your favorite scene"></textarea>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- PICTURES SECTION -->
+    <div class="section-title">Pictures That Describe the Book</div>
+    <div class="image-grid">
+      <div class="image-item">
+        <div class="image-box" id="imageBox1">
+          <span id="imageText1">No image</span>
+          <img id="imagePreview1" style="display: none; width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div class="card-meta">Image 1</div>
+      </div>
+      <div class="image-item">
+        <div class="image-box" id="imageBox2">
+          <span id="imageText2">No image</span>
+          <img id="imagePreview2" style="display: none; width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div class="card-meta">Image 2</div>
+      </div>
+    </div>
+
+    <!-- RECOMMENDATION SECTION -->
+    <div class="recommend-section-plain">
+      <p>Would I Recommend This Book?</p>
+      <div class="button-group">
+        <label class="radio-button">
+          <input type="radio" name="recommend" value="yes">
+          <span>✔ Yes</span>
+        </label>
+        <label>
+          <input type="radio" name="recommend" value="no">
+          <span>✖ No</span>
+        </label>
+      </div>
+    </div>
+
+</div>
+
+<script type="module" src="linkedin-review.js"></script>
+</body>
+
+</html>
