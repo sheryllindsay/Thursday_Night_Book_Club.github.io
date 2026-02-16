@@ -112,11 +112,19 @@ function handleBookSelection() {
     // Update book cover preview
     const coverUrl = bookData.BookCoverUrl || bookData.bookCoverURL || bookData.coverUrl || bookData['Book Cover Url'] || bookData['BookCoverUrl'] || bookData['book-cover'] || bookData['Book-Cover'] || bookData['Book-Cover-Url'];
     if (coverUrl) {
-      selectedCoverUrl = coverUrl;
+      const normalizedCoverUrl = String(coverUrl).trim();
+      const resolvedCoverUrl = /^(https?:)?\/\//i.test(normalizedCoverUrl)
+        ? normalizedCoverUrl
+        : new URL(
+            normalizedCoverUrl.startsWith('/') ? normalizedCoverUrl : `/${normalizedCoverUrl}`,
+            window.location.origin
+          ).toString();
+
+      selectedCoverUrl = resolvedCoverUrl;
       const previewImg = document.getElementById('bookCoverPreview');
       const textSpan = document.getElementById('bookCoverText');
       if (previewImg) {
-        previewImg.src = coverUrl;
+        previewImg.src = resolvedCoverUrl;
         previewImg.style.display = 'block';
         if (textSpan) textSpan.style.display = 'none';
       }
